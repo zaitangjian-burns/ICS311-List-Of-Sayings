@@ -1,9 +1,10 @@
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 //Node class for the tree
 class RedBlack {
     String key;
+    String normalizedKey;  // A version of the key which removes the okina (and any other special characters) when considering alphabetical sorting
     String englishTranslation;
     List<String> nonEnglishWords;
     List<String> englishWords;
@@ -12,12 +13,17 @@ class RedBlack {
 
     public RedBlack(String key, String englishTranslation) {
         this.key = key;
+        this.normalizedKey = normalizeKey(key);  // Normalize the key
         this.englishTranslation = englishTranslation;
-        this.nonEnglishWords = List.of(key.split(" ")); //replaceAll("[^\\w\\s]", "") removes any character that is not a word character, only used for english since nonEnglish does not contain punctuation from the resource used
-
-        this.englishWords = List.of(englishTranslation.replaceAll("[^\\w\\s]", "").split(" "));
+        this.nonEnglishWords = List.of(key.split(" ")); 
+        this.englishWords = List.of(englishTranslation.replaceAll("[^\\w\\s]", "").split(" "));         //replaceAll("[^\\w\\s]", "") removes any character that is not a word character, only used for english since nonEnglish does not contain punctuation from the resource used
         this.left = this.right = this.parent = null;
         this.isRed = true;
+    }
+    // Helper function to normalize the key (removes special characters for sorting)
+    private String normalizeKey(String key) {
+        return key.replaceAll("[^\\p{L}\\p{N}]", "").toLowerCase();
+        // The replaceAll and toLowerCase functions remove non-alphabetic characters and converts to lowercase
     }
 }
 //Structure for RedBlackTree along with our operations
@@ -34,16 +40,13 @@ class RedBlackTree {
 
 //Returns a specific saying (member)
 public boolean member(String saying) {
-    if (search(root, saying) != null) {
-        return true;
-    } else {
-        return false;
+    return search(root, normalizeKey(saying)) != null;
     }
-}
 
-private RedBlack search(RedBlack node, String key) {
-    while(node != TNULL && !key.equals(node.key)) {
-        if(key.compareTo(node.key) < 0) {
+
+private RedBlack search(RedBlack node, String normalizedKey) {
+    while(node != TNULL && !normalizedKey.equals(node.normalizedKey)) {
+        if(normalizedKey.compareTo(node.normalizedKey) < 0) {
         node = node.left;
         } else {
             node = node.right;
@@ -82,7 +85,7 @@ public String last() {
 
 //Finds predecessor in tree
 public String predecessor (String key) {
-    RedBlack node = search (root, key);
+    RedBlack node = search (root, normalizeKey(key));
     if (node == TNULL) {
         return null;
     }
@@ -113,7 +116,7 @@ private RedBlack max(RedBlack node) {
 
 //Finds successor in tree
 public String successor(String key) {
-    RedBlack node = search(root, key);
+    RedBlack node = search(root, normalizeKey(key));
     if (node == TNULL) {
         return null;
     }
@@ -184,10 +187,11 @@ private void withWord(RedBlack node, String word, List<String> results) {
 
         RedBlack parent = null;
         RedBlack current = root;
+        String normalizedKey = node.normalizedKey;
 
         while (current != TNULL) {
             parent = current;
-            if (node.key.compareTo(current.key) < 0) {
+            if (normalizedKey.compareTo(current.normalizedKey) < 0) {
                 current = current.left;
             } else {
                 current = current.right;
@@ -198,7 +202,7 @@ private void withWord(RedBlack node, String word, List<String> results) {
 
         if (parent == null) {
             root = node;
-        } else if (node.key.compareTo(parent.key) < 0) {
+        } else if (normalizedKey.compareTo(parent.normalizedKey) < 0) {
             parent.left = node;
         } else {
             parent.right = node;
@@ -333,7 +337,10 @@ private void withWord(RedBlack node, String word, List<String> results) {
             return parent.parent.left;
         }
     }
-    
+    private String normalizeKey(String key) {
+        return key.replaceAll("[^\\p{L}\\p{N}]", "").toLowerCase();
+        // The replaceAll and toLowerCase functions remove non-alphabetic characters and converts to lowercase
+    }
 }
 
 

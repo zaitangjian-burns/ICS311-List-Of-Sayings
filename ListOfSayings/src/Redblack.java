@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.ArrayList;
 //Node class for the tree
 class RedBlack {
     String key;
@@ -142,11 +143,15 @@ public List<String> meHua (String word) {
 }
 
 private void meHua(RedBlack node, String word, List<String> results) {
-    if (node == TNULL) return;
-    if (node.nonEnglishWords.contains(word)) 
-    results.add(node.key);
-    meHua(node.left, word, results);
-    meHua(node.right, word, results);
+    if (node != TNULL) { 
+        
+        if (node.nonEnglishWords.contains(word)) {
+            results.add(node.key); 
+        }
+        
+        meHua(node.left, word, results);
+        meHua(node.right, word, results);
+    }
 }
 //Returns all sayings whose English translation contains the given English word(withWord)
 public List<String> withWord (String word) {
@@ -156,12 +161,17 @@ public List<String> withWord (String word) {
 }
 
 private void withWord(RedBlack node, String word, List<String> results) {
-    if (node == TNULL) return;
-    if (node.EnglishWords.contains(word)) 
-    results.add(node.key);
-    withWord(node.left, word, results);
-    withWord(node.right, word, results);
+    if (node != TNULL) { 
+        
+        if (node.englishWords.contains(word)) {
+            results.add(node.key); 
+        }
+        
+        withWord(node.left, word, results);
+        withWord(node.right, word, results);
+    }
 }
+
 
 
 

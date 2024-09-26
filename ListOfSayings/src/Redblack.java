@@ -30,6 +30,121 @@ class RedBlackTree {
     }
 //Main Operations
 
+//Returns a specific saying (member)
+public boolean member(String saying) {
+    if (search(root, saying) != null) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+private RedBlack search(RedBlack node, String key) {
+    while(node != TNULL && !key.equals(node.key)) {
+        if(key.compareTo(node.key) < 0) {
+        node = node.left;
+        } else {
+            node = node.right;
+    }
+}
+  if (node != TNULL) {
+      return node;
+  } else {
+    return null;
+  }
+}
+
+//Returns the first saying in tree
+public String first() {
+    RedBlack node = root;
+    while (node.let != TNULL) node = node.left;
+    return node.key;
+}
+
+//Returns the last saying in tree
+public String last() {
+    RedBlack node = root;
+    while(node.right != TNULL) node = node.right;
+    return node.key;
+}
+
+//Finds predecessor in tree
+public String predecessor (String key) {
+    RedBlack node = search (root, key);
+    if (node == null) {
+        return null;
+    }
+    if (node.left != TNULL) {
+        return max(node.left).key;
+    }
+    RedBlack parent = node.parent;
+    while (parent != null && node == parent.left) {
+        node = parent;
+        parent = parent.parent;
+    }
+
+//Returns the predecessor or a null
+if (parent == null) {
+    return null;
+} else {
+    return parent.key;
+  }
+    
+}
+
+//Finds successor in tree
+public String successor(String key) {
+    RedBlack node = search(root, key);
+    if (node == null) {
+        return null;
+    }
+    if (node.right != TNULL) {
+        return min(node.right).key;
+    }
+    RedBlack parent = node.parent;
+    while (parent != null && node == parent.right) {
+        node = parent;
+        parent = parent.parent;
+    }
+
+//Returns the successor or a null
+if (parent == null) {
+    return null;
+} else {
+    return parent.key;
+  }
+}
+
+
+//Returns sayings whose non-English version contains the given non-English word(meHua)
+public List<String> meHua (String word) {
+    List<String> results = new ArrayList <>();
+    meHua(root, word, results);
+    return results;
+}
+
+private void meHua(RedBlack node, String word, List<String> results) {
+    if (node == TNULL) return;
+    if (node.nonEnglishWords.contains(word)) 
+    results.add(node.key);
+    meHua(node.left, word, results);
+    meHua(node.right, word, results);
+}
+//Returns all sayings whose English translation contains the given English word(withWord)
+public List<String> withWord (String word) {
+    List<String> results = new ArrayList <>();
+    withWord(root, word, results);
+    return results;
+}
+
+private void withWord(RedBlack node, String word, List<String> results) {
+    if (node == TNULL) return;
+    if (node.EnglishWords.contains(word)) 
+    results.add(node.key);
+    withWord(node.left, word, results);
+    withWord(node.right, word, results);
+}
+
 
 
     //Inserts a new phrase into the tree

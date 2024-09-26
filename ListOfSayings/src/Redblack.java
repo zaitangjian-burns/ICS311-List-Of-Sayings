@@ -58,21 +58,19 @@ private RedBlack search(RedBlack node, String key) {
 //Returns the first saying in tree
 public String first() {
     RedBlack node = root;
-    if (node == TNULL) {
-        return null;
+    while (node.left != TNULL) {
+        node = node.left;
     }
-    while (node.left != TNULL) node = node.left;
-    return node.key;
+    return node.key; 
 }
 
 //Returns the last saying in tree
 public String last() {
-    RedBlack node = root;
-    if (node == TNULL) {
-        return null;
+    RedBlack node = root; 
+    while (node.right != TNULL) {
+        node = node.right;
     }
-    while(node.right != TNULL) node = node.right;
-    return node.key;
+    return node.key; 
 }
 
 //Finds predecessor in tree

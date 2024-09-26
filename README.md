@@ -8,3 +8,7 @@ https://docs.google.com/document/d/1APvJti4bGlYegnPmxL64A54Z42d6KAiZEx6D3KdO0IE/
 This way it is easier to see who did what if necessary! :D
 
 "src" contains the necessary files for the project
+
+For the implementation part:
+Zai Tangjian-Burns: Entire core implementation of the structure (Redblack Class, helper functions), insert
+Sol Yee Han:  

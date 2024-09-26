@@ -28,6 +28,10 @@ class RedBlackTree {
         TNULL.isRed = false;
         root = TNULL;
     }
+//Main Operations
+
+
+
     //Inserts a new phrase into the tree
     public void insert(String key, String englishTranslation) {
         RedBlack node = new RedBlack(key, englishTranslation);
@@ -65,6 +69,26 @@ class RedBlackTree {
         }
 
         fixInsert(node);
+    }
+
+    
+
+
+//Helper Functions
+    //Used at the end of rotateRight and rotateLeft. 
+    //Sets the parent-child relationship between the parent node of the former root node of the rotated subtree and its new root node.
+    private void replaceParentsChild(RedBlack parent, RedBlack oldChild, RedBlack newChild) {
+        if (parent == null) {
+            root = newChild;
+        } else if (parent.left == oldChild) {
+            parent.left = newChild;
+        } else if (parent.right == oldChild) {
+            parent.right = newChild;
+        }
+    
+        if (newChild != TNULL) {
+            newChild.parent = parent;
+        }
     }
 
     // Rotates node to the right. This is used when a node has a left child that is red and needs to be moved up.
@@ -106,26 +130,6 @@ class RedBlackTree {
             inOrderTraversal(node.left);
             System.out.println("Phrase: " + node.key + " | Translation: " + node.englishTranslation);
             inOrderTraversal(node.right);
-        }
-    }
-//Additional Operations (Not including insert as that's essential component of assembling the tree) 
-
-
-
-//Helper Functions
-    //Used at the end of rotateRight and rotateLeft. 
-    //Sets the parent-child relationship between the parent node of the former root node of the rotated subtree and its new root node.
-    private void replaceParentsChild(RedBlack parent, RedBlack oldChild, RedBlack newChild) {
-        if (parent == null) {
-            root = newChild;
-        } else if (parent.left == oldChild) {
-            parent.left = newChild;
-        } else if (parent.right == oldChild) {
-            parent.right = newChild;
-        }
-    
-        if (newChild != TNULL) {
-            newChild.parent = parent;
         }
     }
 

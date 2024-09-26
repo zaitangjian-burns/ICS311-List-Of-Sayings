@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
+
 //Node class for the tree
 class RedBlack {
     String key;
@@ -58,17 +59,23 @@ private RedBlack search(RedBlack node, String key) {
 //Returns the first saying in tree
 public String first() {
     RedBlack node = root;
+    if (node == TNULL) {
+        return null; 
+    }
     while (node.left != TNULL) {
-        node = node.left;
+        node = node.left; 
     }
     return node.key; 
 }
 
 //Returns the last saying in tree
 public String last() {
-    RedBlack node = root; 
+    RedBlack node = root;
+    if (node == TNULL) {
+        return null; 
+    }
     while (node.right != TNULL) {
-        node = node.right;
+        node = node.right; 
     }
     return node.key; 
 }
@@ -170,9 +177,6 @@ private void withWord(RedBlack node, String word, List<String> results) {
     }
 }
 
-
-
-
     //Inserts a new phrase into the tree
     public void insert(String key, String englishTranslation) {
         RedBlack node = new RedBlack(key, englishTranslation);
@@ -211,9 +215,6 @@ private void withWord(RedBlack node, String word, List<String> results) {
 
         fixInsert(node);
     }
-
-    
-
 
 //Helper Functions
     //Used at the end of rotateRight and rotateLeft. 

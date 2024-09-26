@@ -77,20 +77,20 @@ public String last() {
 //Finds predecessor in tree
 public String predecessor (String key) {
     RedBlack node = search (root, key);
-    if (node == null) {
+    if (node == TNULL) {
         return null;
     }
     if (node.left != TNULL) {
         return max(node.left).key;
     }
     RedBlack parent = node.parent;
-    while (parent != null && node == parent.left) {
+    while (parent != TNULL && node == parent.left) {
         node = parent;
         parent = parent.parent;
     }
 
 //Returns the predecessor or a null
-if (parent == null) {
+if (parent == TNULL) {
     return null;
 } else {
     return parent.key;
@@ -98,29 +98,41 @@ if (parent == null) {
     
 }
 
+private RedBlack max(RedBlack node) {
+    while (node.right != TNULL) {
+        node = node.right;
+    }
+    return node;
+}
+
 //Finds successor in tree
 public String successor(String key) {
     RedBlack node = search(root, key);
-    if (node == null) {
+    if (node == TNULL) {
         return null;
     }
     if (node.right != TNULL) {
         return min(node.right).key;
     }
     RedBlack parent = node.parent;
-    while (parent != null && node == parent.right) {
+    while (parent != TNULL && node == parent.right) {
         node = parent;
         parent = parent.parent;
     }
 
 //Returns the successor or a null
-if (parent == null) {
+if (parent == TNULL) {
     return null;
 } else {
     return parent.key;
   }
 }
-
+private RedBlack min(RedBlack node) {
+    while (node.left != TNULL) {
+        node = node.left;
+    }
+    return node;
+}
 
 //Returns sayings whose non-English version contains the given non-English word(meHua)
 public List<String> meHua (String word) {

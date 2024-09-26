@@ -6,3 +6,5 @@ https://docs.google.com/document/d/1C8dJBp5-VmwFBusiG52hedaUKSDO0vVmoAUcJ2HkhV0/
 Also individual documentation (prior to revisions) for just the documentation that Zai did can be found here 
 https://docs.google.com/document/d/1APvJti4bGlYegnPmxL64A54Z42d6KAiZEx6D3KdO0IE/edit?usp=sharing
 This way it is easier to see who did what if necessary! :D
+
+"src" contains the necessary files for the project
